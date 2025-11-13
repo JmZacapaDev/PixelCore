@@ -21,7 +21,7 @@ class RatingViewSet(viewsets.ModelViewSet):
         try:
             serializer.save(user=self.request.user)
         except IntegrityError:
-            raise rest_framework.serializers.ValidationError({"detail": "You have already rated this media content."})
+            raise rest_framework.exceptions.ValidationError({"detail": "You have already rated this media content."})
 
     @extend_schema(
         summary="List all ratings or filter by media content",
