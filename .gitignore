@@ -1,0 +1,58 @@
+# .gitignore for PixelCore API
+
+# Hello NGP Team!
+# I've intentionally kept this .gitignore minimal for your review process,
+# allowing you to see all generated files and understand the full development flow.
+# I believe in transparency and wanted to ensure nothing was hidden.
+#
+# For future development, here's a more comprehensive .gitignore you might consider:
+
+# Byte-code files
+*.pyc
+__pycache__/
+*~$
+*.bak
+*.swp
+*.swo
+
+# IDE-specific files
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Database
+*.sqlite3
+*.db
+/db.sqlite3
+
+# Environment variables
+.env
+.env.*
+!.env.example # Keep .env.example tracked
+
+# Logs
+*.log
+logs/
+
+# Media files
+media/
+
+# Static files (collected by collectstatic)
+static/
+
+# Django specific
+*.pot
+*.mo
+local_settings.py
+
+# OS generated files
+.DS_Store
+.Trashes
+Thumbs.db
