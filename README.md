@@ -148,6 +148,7 @@ PixelCore/
 │   ├── urls.py
 │   └── views.py
 ├── manage.py
+├── requirements.txt
 ├── .env.example
 └── venv/
 ```
