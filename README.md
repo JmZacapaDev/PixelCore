@@ -19,7 +19,7 @@ PixelCore API is a backend for a content-sharing platform where users can regist
 ### 1. Clone the Repository
 ```bash
 git clone <repository_url>
-cd PixelCore
+# You will be inside the 'PixelCore' directory after cloning.
 ```
 
 ### 2. Create and Activate Virtual Environment
