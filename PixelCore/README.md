@@ -19,13 +19,13 @@ PixelCore API is a backend for a content-sharing platform where users can regist
 ### 1. Clone the Repository
 ```bash
 git clone <repository_url>
-cd ngp/PixelCore
+cd PixelCore
 ```
 
 ### 2. Create and Activate Virtual Environment
 ```bash
-python3 -m venv venv
-source venv/bin/activate
+python3 -m venv .venv
+source .venv/bin/activate
 ```
 
 ### 3. Install Dependencies
@@ -150,5 +150,5 @@ PixelCore/
 ├── manage.py
 ├── requirements.txt
 ├── .env.example
-└── venv/
+└── .venv/
 ```
