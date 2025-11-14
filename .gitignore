@@ -60,3 +60,6 @@ Thumbs.db
 # Ignoring python bytecode and virtual environment
 __pycache__/
 .venv/
+
+# Environment variables
+.env

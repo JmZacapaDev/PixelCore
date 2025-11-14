@@ -20,6 +20,7 @@ PixelCore API is a backend for a content-sharing platform where users can regist
 For a quick and easy setup, use the provided `setup.sh` script. This script will:
 - Ensure Docker is running.
 - Start the local PostgreSQL database using Docker Compose.
+- Create a .env file with the necessary DATABASE_URL.
 - Create and activate the Python virtual environment.
 - Install all necessary Python dependencies.
 - Run database migrations.
@@ -57,17 +58,12 @@ source .venv/bin/activate
 ```
 
 ### 3. Install Dependencies
-First, create a `requirements.txt` file:
-```bash
-pip freeze > requirements.txt
-```
-Then install:
 ```bash
 pip install -r requirements.txt
 ```
 
 ### 4. Environment Variables
-Create a `.env` file in the `PixelCore/` directory (same level as `manage.py`) based on `.env.example`.
+If you are performing a manual setup, create a `.env` file in the `PixelCore/` directory (same level as `manage.py`) based on `.env.example`. The `setup.sh` script handles this automatically.
 
 **`.env.example` content:**
 ```
@@ -96,7 +92,7 @@ ALLOWED_HOSTS='localhost,127.0.0.1'
 # In production, specify allowed origins: CORS_ALLOWED_ORIGINS='https://example.com,https://sub.example.com'
 CORS_ALLOW_ALL_ORIGINS=True
 ```
-**IMPORTANT:** If you are using the Docker Compose setup for PostgreSQL (recommended for local development), ensure your `.env` file contains the `DATABASE_URL` as shown in `.env.example`.
+**IMPORTANT:** If you are using the Docker Compose setup for PostgreSQL (recommended for local development), ensure your `.env` file contains the `DATABASE_URL` as shown in `.env.example`. The `setup.sh` script handles this automatically.
 
 ### 4.1. Local PostgreSQL Setup with Docker Compose (Recommended for Development)
 To easily set up a local PostgreSQL database, you can use Docker Compose.
