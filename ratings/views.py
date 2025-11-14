@@ -9,6 +9,9 @@ from .permissions import IsOwnerOrReadOnly # Import custom permission
 from rest_framework.decorators import action
 from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiExample
 
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
+
 class RatingViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows ratings to be viewed, created, updated or deleted.
@@ -16,12 +19,19 @@ class RatingViewSet(viewsets.ModelViewSet):
     queryset = Rating.objects.all()
     serializer_class = RatingSerializer
     permission_classes = [IsAuthenticated, IsOwnerOrReadOnly] # Add custom permission
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    filterset_fields = ['user', 'media_content', 'value']
+    ordering_fields = ['created_at', 'value']
 
     def perform_create(self, serializer):
-        try:
-            serializer.save(user=self.request.user)
-        except IntegrityError:
-            raise rest_framework.exceptions.ValidationError({"detail": "You have already rated this media content."})
+        serializer.save(user=self.request.user)
+        self.request.user.rating_count += 1
+        self.request.user.save(update_fields=['rating_count'])
+
+    def perform_destroy(self, instance):
+        instance.user.rating_count -= 1
+        instance.user.save(update_fields=['rating_count'])
+        instance.delete()
 
     @extend_schema(
         summary="List all ratings or filter by media content",

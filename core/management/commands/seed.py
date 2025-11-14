@@ -65,14 +65,13 @@ class Command(BaseCommand):
             self.stdout.write(self.style.SUCCESS(f'Created media content: {media_content.title}'))
 
         # 3. Create 3 rating scenarios
-        # Scenario 1: Same user multiple ratings
+        # Scenario 1: Two or more ratings from one user on one media content
         user1 = users[0]
-        for i in range(3):
-            media = random.choice(media_contents)
-            # Ensure user1 doesn't rate the same media twice in this scenario
-            if not Rating.objects.filter(user=user1, media_content=media).exists():
-                Rating.objects.create(user=user1, media_content=media, value=random.randint(1, 5))
-                self.stdout.write(self.style.SUCCESS(f'User {user1.email} rated {media.title}'))
+        content_for_multiple_ratings = media_contents[0] # Pick one content for multiple ratings
+        Rating.objects.create(user=user1, media_content=content_for_multiple_ratings, value=random.randint(1, 5))
+        self.stdout.write(self.style.SUCCESS(f'User {user1.email} rated {content_for_multiple_ratings.title} (first rating)'))
+        Rating.objects.create(user=user1, media_content=content_for_multiple_ratings, value=random.randint(1, 5))
+        self.stdout.write(self.style.SUCCESS(f'User {user1.email} rated {content_for_multiple_ratings.title} (second rating)'))
 
         # Scenario 2: Multiple users one content
         content1 = media_contents[0]
