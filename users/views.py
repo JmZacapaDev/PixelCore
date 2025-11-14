@@ -65,4 +65,11 @@ class CustomTokenObtainPairView(TokenObtainPairView):
         },
     )
     def post(self, request, *args, **kwargs):
-        return super().post(request, *args, **kwargs)
+        response = super().post(request, *args, **kwargs)
+        if response.status_code == 200:
+            from django.contrib.auth import update_last_login
+            serializer = self.get_serializer(data=request.data)
+            serializer.is_valid()
+            user = serializer.user
+            update_last_login(None, user)
+        return response

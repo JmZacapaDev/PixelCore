@@ -29,11 +29,12 @@ until docker exec pixelcore_db pg_isready -U ${POSTGRES_USER:-pixelcore_user} -d
 done
 echo "PostgreSQL is ready to accept connections."
 # --- 3. Create .env file ---
-echo "Creating .env file with DATABASE_URL..."
-# Use default values from docker-compose.yml
-cat > .env << EOF
-DATABASE_URL="postgresql://${POSTGRES_USER:-pixelcore_user}:${POSTGRES_PASSWORD:-pixelcore_password}@localhost:5432/${POSTGRES_DB:-pixelcore_db}"
-EOF
+if [ ! -f .env ]; then
+    echo "Creating .env file from .env.example..."
+    cp .env.example .env
+else
+    echo ".env file already exists. Skipping creation."
+fi
 
 # --- 4. Create and Activate Virtual Environment ---
 echo "Creating and activating Python virtual environment..."

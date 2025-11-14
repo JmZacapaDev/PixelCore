@@ -32,7 +32,6 @@ class Rating(models.Model):
         verbose_name = "Rating"
         verbose_name_plural = "Ratings"
         # Ensure a user can only rate a specific media content once
-        unique_together = ('user', 'media_content')
         ordering = ["-created_at"]
 
     def __str__(self):

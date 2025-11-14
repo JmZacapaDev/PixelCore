@@ -5,14 +5,15 @@ PixelCore API is a backend for a content-sharing platform where users can regist
 
 ## Tech Stack
 - **Framework:** Django + Django REST Framework
-- **Auth:** djangorestframework-simplejwt
-- **Database:** PostgreSQL
-- **Environment Variables:** `.env` file with `python-dotenv`
-- **Documentation:** drf-spectacular (Swagger / OpenAPI 3.0)
-- **Filtering:** django-filter
-- **Tests:** unittest
-- **CORS:** django-cors-headers
+- **Database:** PostgreSQL (managed with Docker Compose)
+- **Authentication:** djangorestframework-simplejwt (for JWT)
+- **API Documentation:** drf-spectacular (for Swagger / OpenAPI 3.0)
+- **Environment Variables:** python-dotenv (for `.env` file support)
 - **Database URL Parsing:** dj-database-url
+- **CORS:** django-cors-headers
+- **Filtering:** django-filter
+- **Data Seeding:** Faker (for generating sample data)
+- **Testing:** unittest (Django's built-in test framework)
 
 ## Setup Instructions
 
@@ -20,7 +21,7 @@ PixelCore API is a backend for a content-sharing platform where users can regist
 For a quick and easy setup, use the provided `setup.sh` script. This script will:
 - Ensure Docker is running.
 - Start the local PostgreSQL database using Docker Compose.
-- Create a .env file with the necessary DATABASE_URL.
+- Create a .env file from .env.example if it doesn't exist.
 - Create and activate the Python virtual environment.
 - Install all necessary Python dependencies.
 - Run database migrations.
@@ -67,6 +68,10 @@ If you are performing a manual setup, create a `.env` file in the `PixelCore/` d
 
 **`.env.example` content:**
 ```
+# Hello NGP Team!
+# This is an example of the .env file that the setup.sh script will use to create the .env file.
+# Feel free to modify the values here, but be aware that the setup.sh script will use these as defaults.
+
 # Django secret key. KEEP THIS SECRET IN PRODUCTION!
 SECRET_KEY='your_secret_key_here'
 
