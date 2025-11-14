@@ -56,3 +56,7 @@ local_settings.py
 .DS_Store
 .Trashes
 Thumbs.db
+
+# Ignoring python bytecode and virtual environment
+__pycache__/
+.venv/
