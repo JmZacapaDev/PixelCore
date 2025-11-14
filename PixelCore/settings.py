@@ -124,9 +124,7 @@ SPECTACULAR_SETTINGS = {
         'showExtensions': True,
         'tryItOutEnabled': True,
     },
-    'POSTPROCESSING_HOOKS': [
-        'drf_spectacular.contrib.djangorestframework_simplejwt.jwt_security_definitions',
-    ],
+    'POSTPROCESSING_HOOKS': [],
 }
 
 # Custom User Model
