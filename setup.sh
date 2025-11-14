@@ -21,12 +21,13 @@ docker-compose up -d db
 
 # Wait for PostgreSQL to be ready
 echo "Waiting for PostgreSQL to be ready..."
-until docker inspect pixelcore_db --format='{{.State.Health.Status}}' | grep -q "healthy"; do
+# Use a loop to check if PostgreSQL is ready to accept connections
+# This is more robust than just waiting for the Docker health check
+until docker exec pixelcore_db pg_isready -U ${POSTGRES_USER:-pixelcore_user} -d ${POSTGRES_DB:-pixelcore_db} &> /dev/null; do
   printf "."
   sleep 1
 done
-echo "PostgreSQL is healthy."
-
+echo "PostgreSQL is ready to accept connections."
 # --- 3. Create and Activate Virtual Environment ---
 echo "Creating and activating Python virtual environment..."
 python3 -m venv .venv

@@ -22,7 +22,7 @@ class Command(BaseCommand):
 
         self.stdout.write(self.style.SUCCESS('Existing data cleared.'))
 
-        # 1. Create 2 users
+        # 1. Create 2 regular users
         users = []
         for i in range(2):
             email = fake.email()
@@ -30,7 +30,20 @@ class Command(BaseCommand):
             password = 'password123' # Simple password for seeded users
             user = User.objects.create_user(email=email, username=username, password=password)
             users.append(user)
-            self.stdout.write(self.style.SUCCESS(f'Created user: {user.email}'))
+            self.stdout.write(self.style.SUCCESS(f'Created regular user: {user.email}'))
+
+        # Create a superuser for admin access
+        admin_email = 'admin@tests.com'
+        admin_password = 'admin123'
+        if not User.objects.filter(email=admin_email).exists():
+            superuser = User.objects.create_superuser(
+                email=admin_email,
+                username='admin',
+                password=admin_password
+            )
+            self.stdout.write(self.style.SUCCESS(f'Created superuser: {superuser.email} with password "{admin_password}"'))
+        else:
+            self.stdout.write(self.style.WARNING(f'Superuser with email {admin_email} already exists.'))
 
         # 2. Create 5 media items
         media_contents = []
