@@ -28,24 +28,31 @@ until docker exec pixelcore_db pg_isready -U ${POSTGRES_USER:-pixelcore_user} -d
   sleep 1
 done
 echo "PostgreSQL is ready to accept connections."
-# --- 3. Create and Activate Virtual Environment ---
+# --- 3. Create .env file ---
+echo "Creating .env file with DATABASE_URL..."
+# Use default values from docker-compose.yml
+cat > .env << EOF
+DATABASE_URL="postgresql://${POSTGRES_USER:-pixelcore_user}:${POSTGRES_PASSWORD:-pixelcore_password}@localhost:5432/${POSTGRES_DB:-pixelcore_db}"
+EOF
+
+# --- 4. Create and Activate Virtual Environment ---
 echo "Creating and activating Python virtual environment..."
 python3 -m venv .venv
 source .venv/bin/activate
 
-# --- 4. Install Dependencies ---
+# --- 5. Install Dependencies ---
 echo "Installing Python dependencies..."
 pip install -r requirements.txt
 
-# --- 5. Run Django Migrations ---
+# --- 6. Run Django Migrations ---
 echo "Running Django migrations..."
 python manage.py migrate
 
-# --- 6. Seed the Database ---
+# --- 7. Seed the Database ---
 echo "Seeding the database with sample data..."
 python manage.py seed
 
-# --- 7. Run the Development Server ---
+# --- 8. Run the Development Server ---
 echo "Starting Django development server..."
 echo "API will be available at http://127.0.0.1:8000/"
 echo "Swagger UI at http://127.0.0.1:8000/api/docs/"
